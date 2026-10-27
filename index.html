@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storys | Premium Interactive Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030303;
+    --surface: #0a0a0a;
+    --surface-hover: #121212;
+    --text: #ffffff;
+    --text-dim: #9ca3af;
+    --gold: #d4af37;
+    --gold-light: #f3e5ab;
+    --gold-glow: rgba(212, 175, 55, 0.2);
+    --border: rgba(212, 175, 55, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: Tahoma, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+      linear-gradient(to bottom, #030303, #050505);
+  }
+
+  /* هدر لوکس */
+  header {
+    position: fixed;
+    top: 0; width: 100%;
+    padding: 25px 5% 15px;
+    background: rgba(3, 3, 3, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px var(--gold-glow);
+    transition: 0.3s;
+  }
+  .logo:hover { text-shadow: 0 0 40px var(--gold-glow); }
+
+  nav { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  nav button {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    font-family: Tahoma, sans-serif;
+    font-size: 0.95rem;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  nav button:hover { color: var(--gold-light); }
+  nav button.active { 
+    color: var(--gold-light); 
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.05);
+  }
+
+  main {
+    padding: 180px 5% 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 100px);
+  }
+
+  .page { display: none; animation: cinematicFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .page.active { display: block; }
+  @keyframes cinematicFade {
+    from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+  .section-header p { color: var(--text-dim); font-size: 1.1rem; }
+
+  /* باکس دانلود */
+  .engine-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .engine-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.6;
+  }
+
+  .engine-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+  }
+  .engine-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .badge {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--gold-light);
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  .engine-desc { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 40px; line-height: 1.8; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .info-list h4 { color: var(--gold-light); margin-bottom: 15px; font-size: 1rem; letter-spacing: 1px; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
+  .info-list ul { list-style: none; font-size: 0.95rem; }
+  .info-list ul li { margin-bottom: 12px; color: var(--text-dim); }
+  .info-list ul li strong { color: var(--text); display: inline-block; width: 130px; }
+
+  .btn-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #e6c27a, #b8860b);
+    color: #000;
+    text-decoration: none;
+    font-family: Tahoma, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    transition: all 0.4s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #f3e5ab, #d4af37);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* بخش بازی */
+  .game-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 80px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    max-width: 600px;
+    margin: 0 auto;
+    transition: 0.4s;
+  }
+  .game-card:hover { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+  .game-card h3 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--gold-light); margin-bottom: 15px; letter-spacing: 2px; }
+
+  /* اخبار */
+  .news-container { max-width: 900px; margin: 0 auto; }
+  .news-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    align-items: center;
+  }
+  .news-item:hover { border-color: rgba(212, 175, 55, 0.3); transform: translateX(5px); }
+  .news-date { color: var(--gold); font-family: 'Cinzel', serif; font-weight: bold; min-width: 120px; font-size: 1rem; }
+  .news-content h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+  .news-content p { color: var(--text-dim); font-size: 0.95rem; }
+
+  /* کامیونیتی و تماس */
+  .glass-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 60px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .glass-panel h3 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold-light); margin-bottom: 20px; }
+  .glass-panel p { color: var(--text-dim); margin-bottom: 40px; font-size: 1.1rem; }
+
+  @media (max-width: 768px) {
+    .engine-box { padding: 30px; }
+    .engine-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .grid-2 { grid-template-columns: 1fr; gap: 20px; }
+    .section-header h1 { font-size: 2.5rem; }
+    .news-item { flex-direction: column; gap: 10px; text-align: center; }
+    .logo { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo" onclick="showPage('home', document.querySelector('nav button'))">Storys</div>
+    <nav>
+      <button class="active" onclick="showPage('home', this)">Home</button>
+      <button onclick="showPage('software', this)">Software</button>
+      <button onclick="showPage('games', this)">Games</button>
+      <button onclick="showPage('news', this)">News</button>
+      <button onclick="showPage('community', this)">Community</button>
+      <button onclick="showPage('contact', this)">Contact Us</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home -->
+    <div id="home" class="page active">
+      <div class="section-header" style="padding-top: 100px;">
+        <h1>Building the Future.</h1>
+        <p>Storys is an independent studio dedicated to crafting premium software and interactive experiences.</p>
+      </div>
+    </div>
+
+    <!-- Software -->
+    <div id="software" class="page">
+      <div class="section-header">
+        <h1>Our Software</h1>
+        <p>Professional tools built for visionary creators.</p>
+      </div>
+      
+      <div class="engine-box">
+        <div class="engine-header">
+          <h2>I Frame Engine</h2>
+          <span class="badge">Version 1.0.0</span>
+        </div>
+        
+        <p class="engine-desc">
+          Our flagship product. A next-generation game engine that empowers writers to build immersive branching narratives. It integrates procedural audio synthesis and dynamic visual effects, allowing creators to export standalone interactive experiences without writing complex code.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-list">
+            <h4>Minimum System Requirements</h4>
+            <ul>
+              <li><strong>OS:</strong> Windows 10 / 11 (64-bit)</li>
+              <li><strong>Processor:</strong> Any modern CPU</li>
+              <li><strong>RAM:</strong> 2 GB</li>
+              <li><strong>Storage:</strong> 10 MB</li>
+              <li><strong>Graphics:</strong> WebView2 compatible</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <h4>File Information</h4>
+            <ul>
+              <li><strong>File Name:</strong> I Frame Engine.zip</li>
+              <li><strong>File Size:</strong> ~4 MB</li>
+              <li><strong>Type:</strong> ZIP Archive</li>
+              <li><strong>Installation:</strong> Extract & Run</li>
+              <li><strong>Release:</strong> October 21, 2026</li>
+            </ul>
+          </div>
+        </div>
+
+        <a href="iframe-engine.zip" download class="btn-gold">
+          <svg viewBox="0 0 24 24" style="width:24px; fill:currentColor;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download Engine (ZIP)
+        </a>
+      </div>
+    </div>
+
+    <!-- Games -->
+    <div id="games" class="page">
+      <div class="section-header">
+        <h1>Games</h1>
+      </div>
+      
+      <div class="game-card">
+        <h3>Coming Soon</h3>
+      </div>
+    </div>
+
+    <!-- News -->
+    <div id="news" class="page">
+      <div class="section-header">
+        <h1>Studio News</h1>
+        <p>The latest updates from our team.</p>
+      </div>
+
+      <div class="news-container">
+        <div class="news-item">
+          <div class="news-date">NOV 10, 2026</div>
+          <div class="news-content">
+            <h3>Board of Directors Announces Q4 Strategy</h3>
+            <p>Following our recent quarterly meeting, the Storys Board of Directors has approved a new strategic roadmap focused on expanding our software ecosystem and accelerating research into advanced AI-driven narrative tools.</p>
+          </div>
+        </div>
+        
+        <div class="news-item">
+          <div class="news-date">NOV 05, 2026</div>
+          <div class="news-content">
+            <h3>Community Showcase: FNAF Reimagined</h3>
+            <p>A talented community member has recreated the classic horror game <strong>Five Nights at Freddy's</strong> using the <strong>I Frame Engine</strong>, featuring significantly higher graphics and dynamic lighting. We are thrilled to see the engine being pushed to its limits by creators.</p>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">OCT 28, 2026</div>
+          <div class="news-content">
+            <h3>Storys Expresses Support for Canadian Tech Initiatives</h3>
+            <p>As a studio that values global collaboration, Storys officially announces its support for Canada's growing technology and creative arts sectors. We look forward to exploring partnerships with Canadian developers and institutions in the near future.</p>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">OCT 21, 2026</div>
+          <div class="news-content">
+            <h3>I Frame Engine v1.0 Officially Released</h3>
+            <p>Our standalone game engine is now available for download. It features procedural audio generation and a robust branching script system.</p>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">SEP 15, 2026</div>
+          <div class="news-content">
+            <h3>New Website and Branding Reveal</h3>
+            <p>Welcome to the new home of Storys. We've updated our design language to better reflect our premium vision for the future of interactive fiction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Community -->
+    <div id="community" class="page">
+      <div class="section-header">
+        <h1>Community</h1>
+        <p>Connect with creators and testers.</p>
+      </div>
+
+      <div class="glass-panel">
+        <h3>Join the Network</h3>
+        <p>Whether you are a developer, writer, or gamer, we want to hear from you. Reach out to become part of our growing community and stay updated on our future releases.</p>
+        <a href="mailto:storysinteractive4@gmail.com?subject=Community Request" class="btn-gold" style="width:auto; display:inline-flex; padding:15px 40px;">Join Community</a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div id="contact" class="page">
+      <div class="section-header">
+        <h1>Contact Us</h1>
+        <p>We're always listening.</p>
+      </div>
+
+      <div class="glass-panel">
+        <h3>Get in Touch</h3>
+        <p>For business inquiries, support, or general questions regarding our products and company, please reach out to our team.</p>
+        <a href="mailto:storysinteractive4@gmail.com" class="btn-gold" style="width:auto; display:inline-flex; padding:15px 40px;">Email Us</a>
+        <div style="margin-top: 30px; color: var(--text-dim); font-size: 0.9rem;">
+          <strong style="color: var(--gold);">Email:</strong> storysinteractive4@gmail.com
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function showPage(id, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      
+      if (el && el.tagName === 'BUTTON') {
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+      } else {
+        document.querySelectorAll('nav button').forEach((b, index) => {
+          b.classList.toggle('active', index === 0);
+        });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
